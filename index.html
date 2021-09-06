@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Ejemplo botones</title>
+
+    <style>
+      h1 {
+        color: green;
+      }
+      h2 {
+        font-family: Impact;
+      }
+      body {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bienvenidos</h1>
+    <h2>JavaScript</h2>
+    <p>
+      Ejemplo de doble click sobre el botón para mostrar un "mensaje de alerta"
+    </p>
+
+    <button ondblclick="myalert()">
+      Mostrar mensaje de alerta
+    </button>
+
+    <script>
+      function myalert() {
+        alert("Test\ n " + "Mensaje de alerta " + "sobre un boton");
+      }
+    </script>
+
+    <input
+      type="text"
+      name="numero"
+      id="numero"
+      value=""
+      class="data"
+      required
+      onKeyUp="javascript:validarSiNumero(this.value)"
+    />
+
+    <hr />
+    <br />
+    <div class="correo">
+      <input type="text" name="email1" value="" class="data" required />
+      <input
+        type="text"
+        name="email"
+        id="email"
+        value=""
+        class="data"
+        required
+        onKeyUp="javascript:validateMail('email')"
+      />
+    </div>
+    <hr />
+    <br />
+
+    <label for="TxtFecha">Fecha: </label>
+    <!-- En el evento onKeyPress llamamos la función SoloNumeros() y en el onKeyUp la función ValidarFecha() -->
+    <input
+      name="TxtFecha"
+      type="text"
+      id="TxtFecha"
+      placeholder="YYYYMMDD"
+      maxlength="8"
+      onKeyPress="return SoloNumeros(event);"
+      onKeyUp="ValidarFecha();"
+    />
+
+    <script>
+      function validarSiNumero(numero) {
+        if (!/^([0-9])*$/.test(numero))
+          alert("El valor " + numero + " no es un número");
+      }
+    </script>
+
+    <script type="text/javascript">
+      <!--
+      /*
+       * Función para validar una dirección de correo
+       * Tiene que recibir el identificador del formulario
+       */
+      function validateMail(idMail)
+      {
+      	//Creamos un objeto
+      	object=document.getElementById(idMail);
+      	valueForm=object.value;
+
+      	// Patron para el correo
+      	var patron=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+      	if(valueForm.search(patron)==0)
+      	{
+      		//Mail correcto
+      		object.style.color="#000";
+      	return;
+      	}
+      	//Mail incorrecto
+      	object.style.color="#f00";
+      }
+      //-->
+    </script>
+
+    <script>
+      // Función para permitir sólo números, retroceso y enter
+      function SoloNumeros(evt) {
+        if (window.event) {
+          //asignamos el valor de la tecla a keynum
+          keynum = evt.keyCode; //IE
+        } else {
+          keynum = evt.which; //FF
+        }
+
+        //comprobamos si se encuentra en el rango numérico
+        if ((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      // Función para verificar que la fecha escrita sea correcta según el formato YYYYMMDD
+      function ValidarFecha() {
+        // Almacenamos el valor digitado en TxtFecha
+        var Fecha = document.getElementById("TxtFecha").value;
+        var Mensaje = "";
+
+        // Si la fecha está completa comenzamos la validación
+        if (Fecha.length == 8) {
+          var Año = Fecha.substr(0, 4); // Extraemos en año
+          var Mes = parseFloat(Fecha.substr(4, 2)) - 1; // Extraemos el mes
+          var Dia = Fecha.substr(6, 2); // Extraemos el día
+
+          // Con la función Date() de javascript evaluamos si la fecha existe
+          var VFecha = new Date(Año, Mes, Dia);
+
+          // Si las partes de la fecha concuerdan con las que digitamos, es correcta
+          if (
+            VFecha.getFullYear() == Año &&
+            VFecha.getMonth() == Mes &&
+            VFecha.getDate() == Dia
+          ) {
+            Mensaje = "Fecha correcta";
+          } else {
+            Mensaje = "Fecha incorrecta";
+          }
+        }
+
+        // Mostramos el mesaje
+        document.getElementById("Mensaje").innerHTML = Mensaje;
+      }
+    </script>
+  </body>
+</html>
